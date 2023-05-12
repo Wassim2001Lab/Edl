@@ -11,14 +11,14 @@
   href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap"
   rel="stylesheet"
 />
-<img class="wave" src="../../assets/svelte.svg" alt="icon" />
+<img class="wave" src="" alt="icon" />
 <div class="container">
   <div class="img">
-    <img src="./../../assets/svelte.svg" alt="icon" />
+    <img src="crab-dancing.gif" alt="icon" />
   </div>
   <div class="login-content">
     <form action="index.html">
-      <img src="../../assets/svelte.svg" alt="icon" />
+      <img src="vite.svg" alt="icon" />
       <h2 class="title">Welcome</h2>
       <Input
         icon="fa-user"

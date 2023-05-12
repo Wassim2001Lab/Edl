@@ -4,6 +4,6 @@
 </script>
 
 <main>
-  <!-- <Login /> -->
-  <AdminPage />
+  <Login />
+  <!-- <AdminPage /> -->
 </main>

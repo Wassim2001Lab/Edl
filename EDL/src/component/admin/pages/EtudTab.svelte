@@ -115,3 +115,12 @@
 
 
 
+
+<script  type="text/javascript" defer src="https://www.gstatic.com/charts/loader.js"></script>
+    
+<script defer src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script defer src="chart1.js"></script>
+
+<script defer src="dradmin.js"></script>
+<script defer src = "list.js"></script>

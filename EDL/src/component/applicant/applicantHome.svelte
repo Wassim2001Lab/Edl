@@ -12,7 +12,9 @@
 
 <header class="header">
 
+
     <h1 class="header__title">Multi Steps Form Animations</h1>
+</header>
 </header>
   <div class="content">
     <div class="content__inner">
@@ -159,3 +161,4 @@
   </div>
 
 
+  <script defer src="applicenthome.js"></script>

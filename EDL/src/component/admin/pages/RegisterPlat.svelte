@@ -206,3 +206,10 @@
 </div>
 </main>
 
+<<<<<<< HEAD
+=======
+
+<script defer src="dradmin.js"></script>
+<script defer src="asq.js"></script>
+   
+>>>>>>> 46ab21f (added incode script using defer)

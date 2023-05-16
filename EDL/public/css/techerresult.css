@@ -1,0 +1,65 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #efefef;
+    padding: 300px;
+}
+
+.container {
+    max-width: 1000px;
+    width: 100%;
+    background-color: #fff;
+    margin: auto;
+    padding: 0px;
+    box-shadow: 0 2px 20px #0001;
+    border-radius: 10px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.dynamic_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dynamic_table th,
+.dynamic_table td {
+    border: 1px solid rgba(0, 0, 0, 0.133);
+    padding: 10px 15px;
+}
+
+.field_style {
+    border: 1px solid #0002;
+    background-color: transparent;
+    outline: none;
+    padding: 8px 12px;
+    font-size: 0.8rem;
+    width: 100%;
+    color: #333;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.button_style>* {
+    border: none;
+    outline: none;
+    font-size: 10px;
+    color: #fff;
+    text-decoration: none;
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+.add_button {
+    background-color: #54da97 !important;
+}
+
+.remove_button {
+    background-color: #ff9307 !important;
+}

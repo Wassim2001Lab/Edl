@@ -11,6 +11,14 @@
     <link rel="stylesheet" href="adminpage.css">
         <link rel = "stylesheet" href = "list.css">
 
+        <script  type="text/javascript" defer src="https://www.gstatic.com/charts/loader.js"></script>
+    
+        <script defer src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        
+        <script defer src="chart1.js"></script>
+        
+        <script defer src="dradmin.js"></script>
+        <script defer src = "list.js"></script>
     <title>ADMIN</title>
     <!-- <script defer src="chart1.js"></script> -->
   </svelte:head>
@@ -145,12 +153,3 @@
 
 
 
-
-<script  type="text/javascript" defer src="https://www.gstatic.com/charts/loader.js"></script>
-    
-<script defer src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-<script defer src="chart1.js"></script>
-
-<script defer src="dradmin.js"></script>
-<script defer src = "list.js"></script>

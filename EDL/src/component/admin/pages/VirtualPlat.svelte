@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="adminpage.css">
       <link rel="stylesheet" href="vartualplat.css">
 
+      <script type="text/javascript" defer  src="https://www.gstatic.com/charts/loader.js"></script>
+    
+      <script defer src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+      
+      <script defer src="chart1.js"></script>
+      
+      <script defer src="dradmin.js"></script>
+      
+      
     <title>ADMIN</title>
 </svelte:head>
 
@@ -63,12 +72,5 @@
 </main>
 
 
-<script type="text/javascript" defer  src="https://www.gstatic.com/charts/loader.js"></script>
-    
-<script defer src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-<script defer src="chart1.js"></script>
-
-<script defer src="dradmin.js"></script>
 
 

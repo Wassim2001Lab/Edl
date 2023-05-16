@@ -5,6 +5,7 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
     <link rel="stylesheet" href="applicenthome.css">
+    <script defer src="applicenthome.js"></script>
   </svelte:head>
 
 
@@ -158,4 +159,3 @@
   </div>
 
 
-  <script defer src="applicenthome.js"></script>

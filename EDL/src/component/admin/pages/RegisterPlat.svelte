@@ -9,6 +9,12 @@
     <link rel="stylesheet" href="adminpage.css">
  <link rel="stylesheet" href="test.css">
     <title>ADMIN</title>
+
+
+    <script defer src="dradmin.js"></script>
+    <script defer src="asq.js"></script>
+       
+
     <!-- <script defer src="chart1.js"></script> -->
   </svelte:head>
 
@@ -200,7 +206,3 @@
 </div>
 </main>
 
-
-<script defer src="dradmin.js"></script>
-<script defer src="asq.js"></script>
-   

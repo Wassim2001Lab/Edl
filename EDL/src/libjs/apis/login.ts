@@ -1,5 +1,5 @@
 import { navigate } from "svelte-navigator";
-import { decodeJwt, hasFields, logAndReturn } from "../core";
+import { decodeJwt, hasFields, logAndReturn, setJwt } from "../core";
 import { pipe } from "fp-ts/lib/function";
 import { option } from "fp-ts";
 
@@ -15,12 +15,7 @@ export function isCredentials(x: unknown): boolean {
   return hasFields(x, credentialsField);
 }
 
-const store_jwt = (jwt: string) => {
-  localStorage.setItem("jwt", jwt);
-};
-export const logout = () => {
-  localStorage.removeItem("jwt");
-};
+
 
 const users: Credentials[] = [
   { password: "1", username: "A" },
@@ -51,6 +46,10 @@ export const login = (credentials: Credentials): void => pipe(
   logAndReturn,
   option.fromNullable,
   option.chain(c => option.fromNullable(jwts_by_username.get(c.username))),
+  option.chain(jwt => {
+    setJwt(jwt);
+    return option.fromNullable(jwt);
+  }),
   option.chain(jwt => option.fromNullable(decodeJwt(jwt))),
   option.match(() => {
     console.log("Wrong credentials");
@@ -60,3 +59,8 @@ export const login = (credentials: Credentials): void => pipe(
     navigate(`/${user_data.role.toLowerCase()}`)
   })
 )
+
+export function logout() {
+  localStorage.removeItem("Auth");
+  navigate("/login");
+}

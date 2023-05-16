@@ -206,7 +206,3 @@
 </div>
 </main>
 
-
-<script defer src="dradmin.js"></script>
-<script defer src="asq.js"></script>
-   

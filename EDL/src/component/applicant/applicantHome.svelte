@@ -161,4 +161,3 @@
   </div>
 
 
-  <script defer src="applicenthome.js"></script>

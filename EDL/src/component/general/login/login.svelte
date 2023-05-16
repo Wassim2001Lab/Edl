@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { login } from "../../../libjs/login";
+  import { login } from "../../../libjs/apis/login";
   import Input from "./Input.svelte";
   let current_user = {
     password: "",
@@ -43,7 +43,8 @@
         type="submit"
         class="btn"
         value="Login"
-        on:click={() => {
+        on:click={(e) => {
+          e.preventDefault();
           console.log(current_user);
           login(current_user);
         }}

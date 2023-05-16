@@ -73,6 +73,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <script type="text/javascript" defer  src="https://www.gstatic.com/charts/loader.js"></script>
     
@@ -82,5 +83,7 @@
 
 <script defer src="dradmin.js"></script>
 >>>>>>> 46ab21f (added incode script using defer)
+=======
+>>>>>>> 31a90c8 (reset scripts to the head)
 
 

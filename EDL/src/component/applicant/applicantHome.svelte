@@ -1,4 +1,5 @@
 <svelte:head>
+<<<<<<< HEAD
   <meta charset="UTF-8" />
   <title>Bootstrap Multi Step Form | Webdevtrick.com</title>
   <link
@@ -12,6 +13,17 @@
   <link rel="stylesheet" href="applicenthome.css" />
   <script defer src="applicenthome.js"></script>
 </svelte:head>
+=======
+    <meta charset="UTF-8">
+    <title>Bootstrap Multi Step Form | Webdevtrick.com</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="applicenthome.css">
+    <script defer src="applicenthome.js"></script>
+  </svelte:head>
+
+
+>>>>>>> 31a90c8 (reset scripts to the head)
 
 <header class="header">
   <h1 class="header__title">Multi Steps Form Animations</h1>
@@ -250,4 +262,9 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
 </div>
+=======
+
+
+>>>>>>> 31a90c8 (reset scripts to the head)

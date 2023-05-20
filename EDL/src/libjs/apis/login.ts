@@ -2,8 +2,7 @@ import { navigate } from "svelte-navigator";
 import { decodeJwt, hasFields, logAndReturn, setJwt } from "../core";
 import { pipe } from "fp-ts/lib/function";
 import { option } from "fp-ts";
-
-export type Role = "Admin" | "ViceDoyen" | "Professor" | "CFD" | "Applicant";
+import type { Role } from "../model/User";
 
 export type Credentials = {
   password: string;

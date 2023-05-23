@@ -4,11 +4,11 @@ import { pipe } from "fp-ts/lib/function";
 import type { User } from "../../model/User";
 import { usersList } from "../../model/User";
 
-export function getUsers(callback: (x: User[]) => void, failure: () => void) {
+export async function getUsers(callback: (x: User[]) => void, failure: () => void) {
   callback(usersList);
 }
 
-export function getUser(
+export async function getUser(
   callback: (x: User) => void,
   failure: () => void,
   id: number
@@ -20,7 +20,7 @@ export function getUser(
   );
 }
 
-export function deleteUser(
+export async function deleteUser(
   callback: (x: User[]) => void,
   failure: () => void,
   id: number
@@ -33,7 +33,7 @@ export function deleteUser(
 }
 
 
-export function addUser(
+export async function addUser(
   callback: (x: User[]) => void,
   failure: () => void,
   user: User
@@ -45,7 +45,7 @@ export function addUser(
   )
 }
 
-export function updateUser(
+export async function updateUser(
   callback: (x: User[]) => void,
   failure: () => void,
   user: User

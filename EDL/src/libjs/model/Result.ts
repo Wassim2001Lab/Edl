@@ -66,3 +66,18 @@ const addMarkInputFields = [
 export function isAddMarkInput(x: unknown): boolean {
   return hasFields(x, addMarkInputFields);
 }
+
+
+export type correctionDisplay = {
+  result: Result,
+  encoding: string
+}
+
+const correctionDisplayFields = [
+  "result",
+  "encoding"
+];
+
+export function isCorrectionDisplay(x: unknown) {
+  return hasFields(x, correctionDisplayFields);
+}

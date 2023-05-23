@@ -15,3 +15,5 @@ const classmentEntryFields = [
 export function isClassmentEntry(x: unknown): boolean {
   return hasFields(x, classmentEntryFields);
 }
+
+export const classmentEntries: ClassmentEntry[] = [] 

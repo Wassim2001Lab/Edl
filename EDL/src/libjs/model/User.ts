@@ -36,3 +36,19 @@ export const usersList: User[] = [
     domaine: "informatique",
   },
 ];
+
+export type ApplicantAffectation = {
+  session_id: number,
+  applicant_id: number,
+  encoding: string
+}
+
+const applicantAffectationFields = [
+  "session_id",
+  "applicant_id",
+  "encoding",
+]
+
+export function isApplicantAffectation(x: unknown) {
+  return hasFields(x, applicantAffectationFields);
+}

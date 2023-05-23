@@ -17,3 +17,5 @@ const reclamationFields = [
 export function isReclamation(x: unknown): boolean {
   return hasFields(x, reclamationFields);
 }
+
+export const reclamations: Reclamation[] = [];

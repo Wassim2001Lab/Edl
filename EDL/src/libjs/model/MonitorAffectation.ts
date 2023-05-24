@@ -13,3 +13,9 @@ const monitorAffectationFields = [
 export function isMonitorAffectation(x: unknown): boolean {
   return hasFields(x, monitorAffectationFields);
 }
+
+export function isMonitorAffectationArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isMonitorAffectation(x), true);
+}
+
+

@@ -17,5 +17,10 @@ const reclamationFields = [
 export function isReclamation(x: unknown): boolean {
   return hasFields(x, reclamationFields);
 }
+export function isReclamationArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isReclamation(x), true);
+}
+
+
 
 export const reclamations: Reclamation[] = [];

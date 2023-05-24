@@ -34,6 +34,10 @@ const resultFields = [
 export function isResult(x: unknown): boolean {
   return hasFields(x, resultFields);
 }
+export function isResultArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isResult(x), true);
+}
+
 
 export type ResultDisplay = {
   note?: number,
@@ -48,6 +52,11 @@ const resultDisplayFields = [
 export function isResultDisplay(x: unknown): boolean {
   return hasFields(x, resultDisplayFields);
 }
+
+export function isResultDisplayArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isResultDisplay(x), true);
+}
+
 
 export type AddMarkInput = {
   applicant_id: number,
@@ -66,6 +75,10 @@ const addMarkInputFields = [
 export function isAddMarkInput(x: unknown): boolean {
   return hasFields(x, addMarkInputFields);
 }
+export function isAddMarkInputArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isAddMarkInput(x), true);
+}
+
 
 
 export type correctionDisplay = {
@@ -80,4 +93,8 @@ const correctionDisplayFields = [
 
 export function isCorrectionDisplay(x: unknown) {
   return hasFields(x, correctionDisplayFields);
+}
+
+export function isCorrectionDisplayArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isCorrectionDisplay(x), true);
 }

@@ -18,6 +18,10 @@ export function isTheme(x: unknown): boolean {
   return hasFields(x, themeFields);
 }
 
+export function isThemeArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isTheme(x), true);
+}
+
 export type ThemeId = {
   session_id: number,
   professor_id: number,
@@ -34,6 +38,10 @@ export function isThemeId(x: unknown): boolean {
   return hasFields(x, themeIdFields);
 }
 
+export function isThemeIdArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isThemeId(x), true);
+}
+
 export type ThemeDisplay = {
   t: Theme,
   professor: string
@@ -46,6 +54,10 @@ const themeDisplayFields = [
 
 export function isThemeDisplay(x: unknown): boolean {
   return hasFields(x, themeDisplayFields);
+}
+
+export function isThemeDisplayArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isThemeDisplay(x), true);
 }
 
 export const themeDisplays: ThemeDisplay[] = [];

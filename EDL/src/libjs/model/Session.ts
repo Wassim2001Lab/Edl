@@ -22,7 +22,20 @@ export function isSession(x: unknown): boolean {
   return hasFields(x, sessionFields);
 }
 
-export const sessions: Session[] = [];
+export function isSessionArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isSession(x), true);
+}
+
+export const sessions: Session[] = [
+  {
+    id: 1,
+    virtual_platform_id: 1,
+    cfd_id: 1,
+    starting_time: 1293,
+    ending_time: 3932,
+    room_number: 2,
+  }
+];
 
 export type Announcement = {
   id?: number,
@@ -42,7 +55,24 @@ export function isAnnouncement(x: unknown): boolean {
   return hasFields(x, announcementFields);
 }
 
-export const announcements: Announcement[] = []
+export function isAnnouncementArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isAnnouncement(x), true);
+}
+
+export const announcements: Announcement[] = [
+  {
+    id: 1,
+    title: "jfzz",
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    session_id: 1
+  },
+  {
+    id: 2,
+    title: "jfzz",
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    session_id: 1
+  },
+]
 
 export type UpdateSessionInput = {
   id: number,
@@ -60,6 +90,10 @@ const updateSessionInputFields = [
   "room_number",
 ]
 
-export function isUpdateSessionInputFields(x: unknown) {
+export function isUpdateSessionInput(x: unknown) {
   return hasFields(x, updateSessionInputFields);
+}
+
+export function isUpdateSessionInputArray(x: unknown): boolean {
+  return Array.isArray(x) && x.reduce((acc, x) => acc && isUpdateSessionInput(x), true);
 }

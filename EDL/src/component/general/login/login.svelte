@@ -1,10 +1,17 @@
 <script lang="ts">
-  import { login } from "../../../libjs/apis/login";
+  import { task } from "fp-ts";
+  import { login, type Credentials } from "../../../libjs/apis/login";
   import Input from "./Input.svelte";
-  let current_user = {
+  let current_user: Credentials = {
     password: "",
-    username: "",
+    email: "",
   };
+  function resetFields() {
+    current_user = {
+      password: "",
+      email: "",
+    };
+  }
 </script>
 
 <svelte:head>
@@ -30,7 +37,7 @@
         placeholder="Username"
         type="text"
         icon="fa-user"
-        bind:value={current_user.username}
+        bind:value={current_user.email}
       />
       <Input
         placeholder="Password"
@@ -46,7 +53,8 @@
         on:click={(e) => {
           e.preventDefault();
           console.log(current_user);
-          login(current_user);
+
+          console.log(login(current_user, resetFields));
         }}
       />
     </form>

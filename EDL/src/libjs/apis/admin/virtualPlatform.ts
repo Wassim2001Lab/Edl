@@ -1,23 +1,82 @@
 import { pipe } from "fp-ts/lib/function";
-import { virtualPlatformList, type VirtualPlatform } from "../../model/VirtualPlatform";
+import {
+  virtualPlatformList,
+  type VirtualPlatform,
+  isVirtualPlatformArray,
+} from "../../model/VirtualPlatform";
+import axios from "axios";
+import { axiosConfig, handleAxiosError, serverUrlBase } from "../../core";
+import { taskEither, taskOption } from "fp-ts";
 
-
-export async function getVirtualPlatforms(callback: (v: VirtualPlatform[]) => void, failure: () => void) {
-  callback(virtualPlatformList)
+export async function getVirtualPlatforms(
+  callback: (v: VirtualPlatform[]) => void,
+  failure: () => void
+) {
+  pipe(
+    taskEither.tryCatch(
+      () => axios.get(`${serverUrlBase}/admin/virtual-platform`, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in getVirtualPlatform")
+        );
+      }
+    ),
+    taskOption.fromTaskEither,
+    taskOption.map((r) => r.data),
+    taskOption.filter(isVirtualPlatformArray),
+    taskOption.match(() => console.error("Bad payload"), callback)
+  )();
 }
 
-export async function deleteVirtualPlatform(callback: (v: VirtualPlatform[]) => void, failure: () => void, vd_id: number) {
+export async function deleteVirtualPlatform(
+  callback: (v: VirtualPlatform[]) => void,
+  failure: () => void,
+  vd_id: number
+) {
   pipe(
-    virtualPlatformList,
-    vps => vps.filter(v => v.vd_id === vd_id),
-    vps => callback(vps)
-  )
+    taskEither.tryCatch(
+      () =>
+        axios.delete(
+          `${serverUrlBase}/admin/virtual-platform/${vd_id}`,
+          axiosConfig
+        ),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in getVirtualPlatform")
+        );
+      }
+    ),
+    taskEither.match(
+      () => console.error("bad payload"),
+      (response) => {
+        console.log(response);
+        getVirtualPlatforms(callback, failure);
+      }
+    )
+  )();
 }
 
-export async function createVirtualPlatform(callback: (v: VirtualPlatform[]) => void, failure: () => void, v_p: VirtualPlatform) {
+export async function createVirtualPlatform(
+  callback: (v: VirtualPlatform[]) => void,
+  failure: () => void,
+  v_p: VirtualPlatform
+) {
   pipe(
-    virtualPlatformList,
-    vps => [v_p, ...vps],
-    vps => callback(vps)
-  );
+    taskEither.tryCatch(
+      () =>
+        axios.post(`${serverUrlBase}/admin/virtual-platform`, v_p, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in getVirtualPlatform")
+        );
+      }
+    ),
+    taskEither.match(
+      () => console.error("bad payload"),
+      (response) => {
+        console.log(response);
+        getVirtualPlatforms(callback, failure);
+      }
+    )
+  )();
 }

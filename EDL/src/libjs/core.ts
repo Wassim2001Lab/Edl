@@ -1,7 +1,9 @@
+import axios from "axios";
 import { option } from "fp-ts";
 import * as Opt from "fp-ts/Option";
 import { pipe } from "fp-ts/lib/function";
 import jwtDecode from "jwt-decode";
+import { navigate } from "svelte-navigator";
 
 export type JwtPayload = {
   id: number,
@@ -32,7 +34,7 @@ export function logAndReturn<T>(x: T): T {
 }
 
 
-const serverUrlBase = "http://localhost:8000";
+export const serverUrlBase = "http://localhost:8000";
 
 export const decodeJwt = (jwt: string): JwtPayload => pipe(
   jwt,
@@ -54,3 +56,17 @@ export const axiosConfig = {
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
   }
 }
+
+export function handleAxiosError(e: unknown, failure: () => void, fatal: () => void) {
+  if (axios.isAxiosError(e)) {
+    if (e.status === 403) {
+      navigate("/login");
+    }
+    else {
+      failure()
+    }
+  }
+  else {
+    fatal()
+  }
+} 

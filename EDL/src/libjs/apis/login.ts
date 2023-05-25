@@ -1,15 +1,17 @@
 import { navigate } from "svelte-navigator";
-import { decodeJwt, hasFields, logAndReturn, setJwt } from "../core";
+import { axiosConfig, decodeJwt, hasFields, logAndReturn, serverUrlBase, setJwt } from "../core";
 import { pipe } from "fp-ts/lib/function";
-import { option } from "fp-ts";
+import { option, task, taskEither, taskOption } from "fp-ts";
 import type { Role } from "../model/User";
+import axios, { type AxiosResponse } from "axios";
+import { isString } from "fp-ts/lib/string";
 
 export type Credentials = {
   password: string;
-  username: string;
+  email: string;
 };
 
-const credentialsField: string[] = ["password", "username"];
+const credentialsField: string[] = ["password", "email"];
 export function isCredentials(x: unknown): boolean {
   return hasFields(x, credentialsField);
 }
@@ -17,11 +19,11 @@ export function isCredentials(x: unknown): boolean {
 
 
 const users: Credentials[] = [
-  { password: "1", username: "A" },
-  { password: "1", username: "B" },
-  { password: "1", username: "C" },
-  { password: "1", username: "D" },
-  { password: "1", username: "E" },
+  { password: "1", email: "A" },
+  { password: "1", email: "B" },
+  { password: "1", email: "C" },
+  { password: "1", email: "D" },
+  { password: "1", email: "E" },
 ];
 
 const jwts_by_username = new Map<string, string>([
@@ -38,26 +40,25 @@ const jwts_by_username = new Map<string, string>([
   ["E", "eke"],
 ]);
 
-export const login = (credentials: Credentials): void => pipe(
-  users.find(
-    (u) => u.password === credentials.password && u.username === credentials.username
-  ),
-  logAndReturn,
-  option.fromNullable,
-  option.chain(c => option.fromNullable(jwts_by_username.get(c.username))),
-  option.chain(jwt => {
-    setJwt(jwt);
-    return option.fromNullable(jwt);
+export const login = (credentials: Credentials, failure: () => void) => pipe(
+  taskEither.tryCatch(() => axios.post(`${serverUrlBase}/auth/login`, credentials, axiosConfig), e => {
+    alert("Bad Credentials");
+    failure();
   }),
-  option.chain(jwt => option.fromNullable(decodeJwt(jwt))),
-  option.match(() => {
-    console.log("Wrong credentials");
-    navigate("/login");
-  }, (user_data) => {
-    console.log(`Welcome ${user_data.email} your role is ${user_data.role}`);
-    navigate(`/${user_data.role.toLowerCase()}`)
-  })
-)
+  taskOption.fromTaskEither,
+  taskOption.chain(r =>
+    isString(r.data) ?
+      taskOption.fromNullable(r.data) :
+      taskOption.none
+  ),
+  taskOption.chain(jwt => {
+    setJwt(jwt);
+    return taskOption.some(jwt);
+  }),
+  taskOption.chain(jwt => taskOption.fromNullable(decodeJwt(jwt))),
+  logAndReturn,
+  taskOption.match(() => console.error("Bad Payload"), jpl => navigate(`/${jpl.role.toLowerCase()}`))
+)()
 
 export function logout() {
   localStorage.removeItem("Auth");

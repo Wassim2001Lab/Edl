@@ -1,59 +1,120 @@
-import { option } from "fp-ts";
-import { hasFields } from "../../core";
+import { option, taskEither, taskOption } from "fp-ts";
+import {
+  axiosConfig,
+  handleAxiosError,
+  hasFields,
+  serverUrlBase,
+} from "../../core";
 import { pipe } from "fp-ts/lib/function";
-import type { User } from "../../model/User";
-import { usersList } from "../../model/User";
+import { isUser, isUserArray, type User } from "../../model/User";
+import axios from "axios";
 
-export async function getUsers(callback: (x: User[]) => void, failure: () => void) {
-  callback(usersList);
+export function getUsers(callback: (x: User[]) => void, failure: () => void) {
+  pipe(
+    taskEither.tryCatch(
+      () => axios.get(`${serverUrlBase}/admin`, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in getUsers")
+        );
+      }
+    ),
+    taskOption.fromTaskEither,
+    taskOption.map((r) => r.data),
+    taskOption.filter(isUserArray),
+    taskOption.match(() => console.error("Bad payload"), callback)
+  )();
 }
 
-export async function getUser(
+export function getUser(
   callback: (x: User) => void,
   failure: () => void,
   id: number
 ) {
   pipe(
-    usersList.find((u) => u.id === id),
-    u => option.fromNullable(u),
-    option.match(failure, callback)
-  );
+    taskEither.tryCatch(
+      () => axios.get(`${serverUrlBase}/admin/${id}`, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in getUser")
+        );
+      }
+    ),
+    taskOption.fromTaskEither,
+    taskOption.map((r) => r.data),
+    taskOption.filter(isUser),
+    taskOption.match(() => console.error("Bad payload"), callback)
+  )();
 }
 
-export async function deleteUser(
+export function deleteUser(
   callback: (x: User[]) => void,
   failure: () => void,
   id: number
 ) {
   pipe(
-    usersList,
-    us => us.filter(u => u.id === id),
-    us => callback(us)
-  )
+    taskEither.tryCatch(
+      () => axios.delete(`${serverUrlBase}/admin/${id}`, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in deleteUser")
+        );
+      }
+    ),
+    taskEither.match(
+      () => console.error("bad payload"),
+      (response) => {
+        console.log(response);
+        getUsers(callback, failure);
+      }
+    )
+  )();
 }
 
-
-export async function addUser(
+export function addUser(
   callback: (x: User[]) => void,
   failure: () => void,
   user: User
 ) {
   pipe(
-    usersList,
-    us => [user, ...us],
-    (us) => callback(us),
-  )
+    taskEither.tryCatch(
+      () => axios.post(`${serverUrlBase}/admin`, user, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in addUser")
+        );
+      }
+    ),
+    taskEither.match(
+      () => console.error("bad payload"),
+      (response) => {
+        console.log(response);
+        getUsers(callback, failure);
+      }
+    )
+  )();
 }
 
-export async function updateUser(
+export function updateUser(
   callback: (x: User[]) => void,
   failure: () => void,
   user: User
 ) {
   pipe(
-    usersList,
-    us => us.map(u => u.id === user.id ? { ...u, ...user } : u),
-    us => callback(us)
-  )
+    taskEither.tryCatch(
+      () => axios.put(`${serverUrlBase}/admin`, user, axiosConfig),
+      (e) => {
+        handleAxiosError(e, failure, () =>
+          console.error("unknown Error in updateUser")
+        );
+      }
+    ),
+    taskEither.match(
+      () => console.error("bad payload"),
+      (response) => {
+        console.log(response);
+        getUsers(callback, failure);
+      }
+    )
+  )();
 }
-

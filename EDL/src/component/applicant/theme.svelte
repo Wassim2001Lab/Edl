@@ -1,118 +1,226 @@
-
-
 <svelte:head>
-    <title></title>
-    <link href='http://fonts.googleapis.com/css?family=Days+One' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="theme.css">
-    <script defer src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-    <script defer src="theme.js"></script>
-    <script defer>
-    
-        // The `enabled` flag will be `false` if CSS 3D isn't available
-    
-        if ( $.fn.makisu.enabled ) {
-    
-            var $sashimi = $( '.sashimi' );
-            var $nigiri = $( '.nigiri' );
-            var $maki = $( '.maki' );
-    
-            // Create Makisus
-    
-            $nigiri.makisu({
-                selector: 'dd',
-                overlap: 0.85,
-                speed: 1.7
-            });
-    
-            $maki.makisu({
-                selector: 'dd',
-                overlap: 0.6,
-                speed: 0.85
-            });
-    
-            $sashimi.makisu({
-                selector: 'dd',
-                overlap: 0.2,
-                speed: 0.5
-            });
-    
-            // Open all
-            
-            $( '.list' ).makisu( 'open' );
-    
-            // Toggle on click
-    
-            $( '.toggle' ).on( 'click', function() {
-                $( '.list' ).makisu( 'toggle' );
-            });
-    
-            // Disable all links
-    
-            $( '.demo a' ).click( function( event ) {
-                event.preventDefault();
-            });
-    
-        } else {
-    
-            $( '.warning' ).show();
-        }
-    </script>
+  <title />
+  <link
+    href="http://fonts.googleapis.com/css?family=Days+One"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <link rel="stylesheet" href="theme.css" />
+  <script
+    defer
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+  ></script>
+  <script defer src="theme.js"></script>
+  <script defer>
+    // The `enabled` flag will be `false` if CSS 3D isn't available
 
-  </svelte:head>
+    if ($.fn.makisu.enabled) {
+      var $sashimi = $(".sashimi");
+      var $nigiri = $(".nigiri");
+      var $maki = $(".maki");
 
+      // Create Makisus
 
+      $nigiri.makisu({
+        selector: "dd",
+        overlap: 0.85,
+        speed: 1.7,
+      });
+
+      $maki.makisu({
+        selector: "dd",
+        overlap: 0.6,
+        speed: 0.85,
+      });
+
+      $sashimi.makisu({
+        selector: "dd",
+        overlap: 0.2,
+        speed: 0.5,
+      });
+
+      // Open all
+
+      $(".list").makisu("open");
+
+      // Toggle on click
+
+      $(".toggle").on("click", function () {
+        $(".list").makisu("toggle");
+      });
+
+      // Disable all links
+
+      $(".demo a").click(function (event) {
+        event.preventDefault();
+      });
+    } else {
+      $(".warning").show();
+    }
+  </script>
+
+  <script
+    defer
+    src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"
+  ></script>
+  <script defer src="theme.js"></script>
+  <script defer>
+    // The `enabled` flag will be `false` if CSS 3D isn't available
+
+    if ($.fn.makisu.enabled) {
+      var $sashimi = $(".sashimi");
+      var $nigiri = $(".nigiri");
+      var $maki = $(".maki");
+
+      // Create Makisus
+
+      $nigiri.makisu({
+        selector: "dd",
+        overlap: 0.85,
+        speed: 1.7,
+      });
+
+      $maki.makisu({
+        selector: "dd",
+        overlap: 0.6,
+        speed: 0.85,
+      });
+
+      $sashimi.makisu({
+        selector: "dd",
+        overlap: 0.2,
+        speed: 0.5,
+      });
+
+      // Open all
+
+      $(".list").makisu("open");
+
+      // Toggle on click
+
+      $(".toggle").on("click", function () {
+        $(".list").makisu("toggle");
+      });
+
+      // Disable all links
+
+      $(".demo a").click(function (event) {
+        event.preventDefault();
+      });
+    } else {
+      $(".warning").show();
+    }
+  </script>
+</svelte:head>
 
 <header class="header">
-    <hgroup>
-        <h1>theme</h1>
-        <h2>les theme proposer</h2>
-    </hgroup>
+  <hgroup>
+    <h1>theme</h1>
+    <h2>les theme proposer</h2>
+  </hgroup>
 </header>
 
 <section class="demo">
+  <dl class="list nigiri">
+    <dt>Nigiri</dt>
+    <dd><a href="#">Maguro</a></dd>
+    <dd><a href="#">Sake</a></dd>
+    <dd><a href="#">Unagi</a></dd>
+    <dd><a href="#">Buri</a></dd>
+    <dd><a href="#">Suzuki</a></dd>
+    <dd><a href="#">Saba</a></dd>
+    <dd><a href="#">Iwashi</a></dd>
+    <dd><a href="#">Kohada</a></dd>
+    <dd><a href="#">Hirame</a></dd>
+    <dd><a href="#">Tobiwo</a></dd>
+  </dl>
 
-    <dl class="list nigiri">
-        <dt>Nigiri</dt>
-        <dd><a href="#">Maguro</a></dd>
-        <dd><a href="#">Sake</a></dd>
-        <dd><a href="#">Unagi</a></dd>
-        <dd><a href="#">Buri</a></dd>
-        <dd><a href="#">Suzuki</a></dd>
-        <dd><a href="#">Saba</a></dd>
-        <dd><a href="#">Iwashi</a></dd>
-        <dd><a href="#">Kohada</a></dd>
-        <dd><a href="#">Hirame</a></dd>
-        <dd><a href="#">Tobiwo</a></dd>
-    </dl>
+  <dl class="list maki">
+    <dt>Maki</dt>
+    <dd><a href="#">Ana-kyu</a></dd>
+    <dd><a href="#">Chutoro</a></dd>
+    <dd><a href="#">Kaiware</a></dd>
+    <dd><a href="#">Kampyo</a></dd>
+    <dd><a href="#">Kappa</a></dd>
+    <dd><a href="#">Natto</a></dd>
+    <dd><a href="#">Negitoro</a></dd>
+    <dd><a href="#">Oshinko</a></dd>
+    <dd><a href="#">Otoro</a></dd>
+    <dd><a href="#">Tekka</a></dd>
+  </dl>
 
-    <dl class="list maki">
-        <dt>Maki</dt>
-        <dd><a href="#">Ana-kyu</a></dd>
-        <dd><a href="#">Chutoro</a></dd>
-        <dd><a href="#">Kaiware</a></dd>
-        <dd><a href="#">Kampyo</a></dd>
-        <dd><a href="#">Kappa</a></dd>
-        <dd><a href="#">Natto</a></dd>
-        <dd><a href="#">Negitoro</a></dd>
-        <dd><a href="#">Oshinko</a></dd>
-        <dd><a href="#">Otoro</a></dd>
-        <dd><a href="#">Tekka</a></dd>
-    </dl>
+  <dl class="list sashimi">
+    <dt>Sashimi</dt>
+    <dd><a href="#">Maguro</a></dd>
+    <dd><a href="#">Toro</a></dd>
+    <dd><a href="#">Ebi</a></dd>
+    <dd><a href="#">Saba</a></dd>
+    <dd><a href="#">Ika</a></dd>
+    <dd><a href="#">Tako</a></dd>
+    <dd><a href="#">Tomago</a></dd>
+    <dd><a href="#">Kani</a></dd>
+    <dd><a href="#">Katsuo</a></dd>
+    <dd><a href="#">Maguro</a></dd>
+  </dl>
 
-    <dl class="list sashimi">
-        <dt>Sashimi</dt>
-        <dd><a href="#">Maguro</a></dd>
-        <dd><a href="#">Toro</a></dd>
-        <dd><a href="#">Ebi</a></dd>
-        <dd><a href="#">Saba</a></dd>
-        <dd><a href="#">Ika</a></dd>
-        <dd><a href="#">Tako</a></dd>
-        <dd><a href="#">Tomago</a></dd>
-        <dd><a href="#">Kani</a></dd>
-        <dd><a href="#">Katsuo</a></dd>
-        <dd><a href="#">Maguro</a></dd>
-    </dl>
-
-    <a href="#" class="toggle">Toggle</a>
-
+  <a href="#" class="toggle">Toggle</a>
 </section>
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<script defer src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script defer src="theme.js"></script>
+<script defer>
+
+    // The `enabled` flag will be `false` if CSS 3D isn't available
+
+    if ( $.fn.makisu.enabled ) {
+
+        var $sashimi = $( '.sashimi' );
+        var $nigiri = $( '.nigiri' );
+        var $maki = $( '.maki' );
+
+        // Create Makisus
+
+        $nigiri.makisu({
+            selector: 'dd',
+            overlap: 0.85,
+            speed: 1.7
+        });
+
+        $maki.makisu({
+            selector: 'dd',
+            overlap: 0.6,
+            speed: 0.85
+        });
+
+        $sashimi.makisu({
+            selector: 'dd',
+            overlap: 0.2,
+            speed: 0.5
+        });
+
+        // Open all
+        
+        $( '.list' ).makisu( 'open' );
+
+        // Toggle on click
+
+        $( '.toggle' ).on( 'click', function() {
+            $( '.list' ).makisu( 'toggle' );
+        });
+
+        // Disable all links
+
+        $( '.demo a' ).click( function( event ) {
+            event.preventDefault();
+        });
+
+    } else {
+
+        $( '.warning' ).show();
+    }
+</script>
+>>>>>>> 46ab21f (added incode script using defer)
+=======
+>>>>>>> 31a90c8 (reset scripts to the head)

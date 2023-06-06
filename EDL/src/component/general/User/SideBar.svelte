@@ -1,13 +1,9 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
+  import type { SideBarItem } from "../../../libjs/uiTypes";
+  import { logout } from "../../../libjs/apis/login";
   export let hide = false;
-  type SideBarItem = {
-    link: string;
-    icon: string;
-    text: string;
-    active: boolean;
-  };
-  export let userRole;
+  export let userRole: string;
   export let values: SideBarItem[];
 </script>
 
@@ -30,9 +26,12 @@
     <li>
       <button
         class="logout text-white focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 transform active:scale-75 transition-transform"
+        on:click={logout}
       >
         <Icon class="w-5 h-5 mr-2 -ml-1" icon="mdi:logout" rotate={2} />
-        <span class="text">Logout</span>
+        {#if !hide}
+          <span class="text">Logout</span>
+        {/if}
       </button>
     </li>
   </ul>

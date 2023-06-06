@@ -1,13 +1,12 @@
-<script>
+<script lang="ts">
   import { Router, Route } from "svelte-navigator";
-
+  import Admin from "./component/Admin/Admin.svelte";
   import Login from "./component/general/login/login.svelte";
 </script>
 
-<main>
-  <Router>
-    <Route path="login">
-      <Login />
-    </Route>
-  </Router>
-</main>
+<Router>
+  <main>
+    <Route path="login" component={Login} />
+    <Route path="admin/*" component={Admin} />
+  </main>
+</Router>

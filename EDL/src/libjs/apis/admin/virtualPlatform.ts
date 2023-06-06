@@ -23,7 +23,10 @@ export async function getVirtualPlatforms(
     ),
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
-    taskOption.filter(isVirtualPlatformArray),
+    taskOption.map((r) => {
+      console.log(r);
+      return r;
+    }),
     taskOption.match(() => console.error("Bad payload"), callback)
   )();
 }

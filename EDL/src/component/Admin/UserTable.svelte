@@ -23,6 +23,9 @@
       }
     );
   });
+
+  let deleteFunction = () => {};
+  let editFunction = () => {};
 </script>
 
 <div class="w-full h-full">
@@ -63,12 +66,14 @@
           >
             <button
               class="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800 dark:hover:bg-red-500 transform active:scale-75 transition-transform"
+              on:click={deleteFunction}
             >
               <Icon class="w-5 h-5 mr-2 -ml-1" icon="ic:baseline-delete" />
               Delete
             </button>
             <button
               class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 transform active:scale-75 transition-transform"
+              on:click={editFunction}
             >
               Edit
               <Icon class="w-5 h-5 ml-2 -mr-1" icon="ic:baseline-edit" />

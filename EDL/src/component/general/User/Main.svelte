@@ -2,11 +2,11 @@
   import SideBar from "./SideBar.svelte";
   import NavBar from "./NavBar.svelte";
   import Content from "./Content.svelte";
-  import FormAdd from "../FormAdd.svelte";
-  import Table from "../Table.svelte";
+  import { Route, Router } from "svelte-navigator";
+  import type { SideBarItem } from "../../../libjs/uiTypes";
   let hide = false;
   export let userRole: string;
-  export let navBar;
+  export let navBar: SideBarItem[];
 </script>
 
 <NavBar hidebutton={() => (hide = !hide)} {hide} />
@@ -14,7 +14,13 @@
 <Content {hide}>
   <div class="w-full h-full my-gray content-center">
     <div class="m-14 bg-inherit">
-      <FormAdd />
+      <Router>
+        {#each navBar as item}
+          <Route path={item.path}>
+            <svelte:component this={item.component} />
+          </Route>
+        {/each}
+      </Router>
     </div>
   </div>
 </Content>

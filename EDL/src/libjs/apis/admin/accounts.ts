@@ -1,8 +1,9 @@
-import { option, taskEither, taskOption } from "fp-ts";
+import { option, task, taskEither, taskOption } from "fp-ts";
 import {
   axiosConfig,
   handleAxiosError,
   hasFields,
+  logAndReturn,
   serverUrlBase,
 } from "../../core";
 import { pipe } from "fp-ts/lib/function";
@@ -12,7 +13,7 @@ import axios from "axios";
 export function getUsers(callback: (x: User[]) => void, failure: () => void) {
   pipe(
     taskEither.tryCatch(
-      () => axios.get(`${serverUrlBase}/admin`, axiosConfig),
+      () => axios.get(`${serverUrlBase}/admin/`, axiosConfig),
       (e) => {
         handleAxiosError(e, failure, () =>
           console.error("unknown Error in getUsers")
@@ -21,7 +22,10 @@ export function getUsers(callback: (x: User[]) => void, failure: () => void) {
     ),
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
-    taskOption.filter(isUserArray),
+    taskOption.map((r) => {
+      console.log(r);
+      return r;
+    }),
     taskOption.match(() => console.error("Bad payload"), callback)
   )();
 }
@@ -42,7 +46,10 @@ export function getUser(
     ),
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
-    taskOption.filter(isUser),
+    taskOption.map((r) => {
+      console.log(r);
+      return r;
+    }),
     taskOption.match(() => console.error("Bad payload"), callback)
   )();
 }

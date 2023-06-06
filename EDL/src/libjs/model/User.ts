@@ -8,7 +8,7 @@ export type User = {
   password?: string;
   role?: Role;
   domaine?: string;
-  speciality?: string;
+  specialty?: string;
 };
 
 const userFields = ["id", "email", "password", "role", "domain", "specialty"];

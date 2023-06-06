@@ -1,6 +1,7 @@
 <script lang="ts">
-  import type { SideBarItem } from "../../libjs/uiTypes";
+  import type { Page, SideBarItem } from "../../libjs/uiTypes";
   import Main from "../general/User/Main.svelte";
+  import AddUserForm from "./AddUserForm.svelte";
   import UserTable from "./UserTable.svelte";
   import VirtualPlatforms from "./VirtualPlatforms.svelte";
   let userRole = "Administrator";
@@ -9,20 +10,30 @@
     {
       icon: "bxs-user",
       link: "/admin/users",
-      path: "/users",
       text: "Accounts",
       active: false,
-      component: UserTable,
     },
     {
       icon: "bxs-school",
       link: "/admin/virtplat",
-      path: "/virtplat",
       text: "Platforms",
       active: false,
+    },
+  ];
+  let pages: Page[] = [
+    {
+      path: "/users",
+      component: UserTable,
+    },
+    {
+      path: "/virtplat",
       component: VirtualPlatforms,
+    },
+    {
+      path: "/users/add",
+      component: AddUserForm,
     },
   ];
 </script>
 
-<Main {navBar} {userRole} />
+<Main {pages} {navBar} {userRole} />

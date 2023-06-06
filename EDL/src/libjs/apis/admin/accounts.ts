@@ -85,7 +85,7 @@ export function addUser(
 ) {
   pipe(
     taskEither.tryCatch(
-      () => axios.post(`${serverUrlBase}/admin`, user, axiosConfig),
+      () => axios.post(`${serverUrlBase}/admin/`, user, axiosConfig),
       (e) => {
         handleAxiosError(e, failure, () =>
           console.error("unknown Error in addUser")

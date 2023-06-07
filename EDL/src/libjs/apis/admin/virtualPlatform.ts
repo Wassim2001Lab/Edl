@@ -23,7 +23,6 @@ export async function getVirtualPlatforms(
     ),
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
-    taskOption.filter(isVirtualPlatformArray),
     taskOption.match(() => console.error("Bad payload"), callback)
   )();
 }
@@ -49,7 +48,6 @@ export async function deleteVirtualPlatform(
     taskEither.match(
       () => console.error("bad payload"),
       (response) => {
-        console.log(response);
         getVirtualPlatforms(callback, failure);
       }
     )
@@ -74,7 +72,6 @@ export async function createVirtualPlatform(
     taskEither.match(
       () => console.error("bad payload"),
       (response) => {
-        console.log(response);
         getVirtualPlatforms(callback, failure);
       }
     )

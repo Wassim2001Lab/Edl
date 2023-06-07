@@ -49,7 +49,6 @@ export async function addReclamation(
       }
     ),
     taskEither.match(console.error, () => {
-      console.log;
       getReclamation(callback, failure, reclamation.session_id);
     })
   )();

@@ -23,7 +23,7 @@ export function get_possible_applicants(
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
     taskOption.filter(isUserArray),
-    taskOption.match(() => console.log("bad payload"), callback)
+    taskOption.match(() => console.error("bad payload"), callback)
   );
 }
 
@@ -47,7 +47,7 @@ export function get_affected_applicants(
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
     taskOption.filter(isUserArray),
-    taskOption.match(() => console.log("bad payload"), callback)
+    taskOption.match(() => console.error("bad payload"), callback)
   );
 }
 export function affect_applicant(
@@ -65,7 +65,7 @@ export function affect_applicant(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
+      console.error(r);
       callback();
     })
   )();
@@ -89,7 +89,6 @@ export function encode_applicant(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callback();
     })
   )();
@@ -112,7 +111,6 @@ export function delete_affectation(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callback();
     })
   )();

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { task } from "fp-ts";
   import { login, type Credentials } from "../../../libjs/apis/login";
   import Input from "./Input.svelte";
   let current_user: Credentials = {
@@ -21,7 +20,7 @@
     rel="stylesheet"
   />
   <script src="https://kit.fontawesome.com/a81368914c.js"></script>
-  <script defer type="text/javascript" src="js/login.js"></script>
+  <script defer type="text/javascript" src="/js/login.js"></script>
 </svelte:head>
 
 <img class="wave" src="" alt="icon" />

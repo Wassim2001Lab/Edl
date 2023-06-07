@@ -24,7 +24,7 @@ export function get_announcement(
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
     taskOption.filter(isAnnouncementArray),
-    taskOption.match(() => console.log("bad payload"), callback)
+    taskOption.match(() => console.error("bad payload"), callback)
   );
 }
 export function create_announcement(
@@ -42,7 +42,6 @@ export function create_announcement(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_announcement(callback, failure, a.session_id);
     })
   )();
@@ -65,7 +64,6 @@ export function delete_announcement(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callback();
     })
   )();

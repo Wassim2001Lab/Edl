@@ -1,6 +1,6 @@
 import { pipe } from "fp-ts/lib/function";
 import { sessions, type Session, isSessionArray } from "../../model/Session";
-import { usersList, type User, isUserArray } from "../../model/User";
+import { type User, isUserArray } from "../../model/User";
 import type { MonitorAffectation } from "../../model/MonitorAffectation";
 import { isModuleArray, type Module } from "../../model/Module";
 import { isResultArray, type Result } from "../../model/Result";
@@ -95,7 +95,6 @@ export function add_monitor(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callBack();
     })
   )();
@@ -119,7 +118,6 @@ export function delete_monitor(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callBack();
     })
   )();
@@ -211,7 +209,6 @@ export function create_result(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callback();
     })
   )();
@@ -284,7 +281,6 @@ export function end_session(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callback();
     })
   )();

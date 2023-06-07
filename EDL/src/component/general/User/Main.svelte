@@ -17,8 +17,8 @@
     <div class="m-14 bg-inherit">
       <Router>
         {#each pages as item}
-          <Route path={item.path}>
-            <svelte:component this={item.component} />
+          <Route path={item.path} let:params>
+            <svelte:component this={item.component} {...params} />
           </Route>
         {/each}
       </Router>

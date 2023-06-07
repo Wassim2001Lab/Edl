@@ -22,10 +22,6 @@ export function getUsers(callback: (x: User[]) => void, failure: () => void) {
     ),
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
-    taskOption.map((r) => {
-      console.log(r);
-      return r;
-    }),
     taskOption.match(() => console.error("Bad payload"), callback)
   )();
 }
@@ -46,10 +42,6 @@ export function getUser(
     ),
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
-    taskOption.map((r) => {
-      console.log(r);
-      return r;
-    }),
     taskOption.match(() => console.error("Bad payload"), callback)
   )();
 }
@@ -71,7 +63,6 @@ export function deleteUser(
     taskEither.match(
       () => console.error("bad payload"),
       (response) => {
-        console.log(response);
         getUsers(callback, failure);
       }
     )
@@ -95,7 +86,6 @@ export function addUser(
     taskEither.match(
       () => console.error("bad payload"),
       (response) => {
-        console.log(response);
         getUsers(callback, failure);
       }
     )
@@ -109,7 +99,7 @@ export function updateUser(
 ) {
   pipe(
     taskEither.tryCatch(
-      () => axios.put(`${serverUrlBase}/admin`, user, axiosConfig),
+      () => axios.put(`${serverUrlBase}/admin/`, user, axiosConfig),
       (e) => {
         handleAxiosError(e, failure, () =>
           console.error("unknown Error in updateUser")
@@ -119,7 +109,6 @@ export function updateUser(
     taskEither.match(
       () => console.error("bad payload"),
       (response) => {
-        console.log(response);
         getUsers(callback, failure);
       }
     )

@@ -23,7 +23,7 @@ export function get_sessions(
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
     taskOption.filter(isSessionArray),
-    taskOption.match(() => console.log("bad payload"), callBack)
+    taskOption.match(() => console.error("bad payload"), callBack)
   )();
 }
 export function create_session(
@@ -40,7 +40,6 @@ export function create_session(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_sessions(callBack, failure);
     })
   )();
@@ -59,7 +58,6 @@ export function delete_session(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_sessions(callBack, failure);
     })
   )();
@@ -78,7 +76,6 @@ export function update_session(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_sessions(callback, failure);
     })
   )();

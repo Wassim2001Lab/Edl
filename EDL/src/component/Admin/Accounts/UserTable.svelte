@@ -4,6 +4,7 @@
   import { onMount } from "svelte";
   import { deleteUser, getUsers } from "../../../libjs/apis/admin/accounts";
   import { navigate } from "svelte-navigator";
+  import { id } from "fp-ts/lib/Refinement";
   let headers: string[] = [
     "id",
     "email",
@@ -19,7 +20,6 @@
       (us) => (users = us),
       () => {
         navigate("/login");
-        console.log("failed");
       }
     );
   });
@@ -35,7 +35,9 @@
       id
     );
   };
-  let editFunction = () => {};
+  let editFunction = (id: number) => {
+    navigate(`/admin/users/edit/${id}`);
+  };
 </script>
 
 <div class="w-full h-full">
@@ -95,7 +97,7 @@
             </button>
             <button
               class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 transform active:scale-75 transition-transform"
-              on:click={editFunction}
+              on:click={() => u.id && editFunction(u.id)}
             >
               Edit
               <Icon class="w-5 h-5 ml-2 -mr-1" icon="ic:baseline-edit" />

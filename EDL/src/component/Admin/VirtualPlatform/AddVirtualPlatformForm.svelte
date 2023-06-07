@@ -19,9 +19,7 @@
           vp.vd_id = users[0].id;
         }
       },
-      () => {
-        console.log("failure");
-      }
+      () => {}
     );
   });
   let def: VirtualPlatform = {
@@ -34,9 +32,7 @@
       (v) => {
         navigate("/admin/virtplat");
       },
-      () => {
-        console.log("failure");
-      },
+      () => {},
       vp
     );
   };

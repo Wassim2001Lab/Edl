@@ -46,7 +46,6 @@ export function chooseTheme(
       }
     ),
     taskEither.match(console.error, () => {
-      console.log;
       callback();
     })
   )();

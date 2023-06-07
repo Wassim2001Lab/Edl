@@ -2,6 +2,7 @@
   import type { Page, SideBarItem } from "../../libjs/uiTypes";
   import Main from "../general/User/Main.svelte";
   import AddUserForm from "./Accounts/AddUserForm.svelte";
+  import EditUserForm from "./Accounts/EditUserForm.svelte";
   import UserTable from "./Accounts/UserTable.svelte";
   import AddVirtualPlatformForm from "./VirtualPlatform/AddVirtualPlatformForm.svelte";
   import VirtualPlatforms from "./VirtualPlatform/VirtualPlatforms.svelte";
@@ -27,12 +28,16 @@
       component: UserTable,
     },
     {
-      path: "/virtplat",
-      component: VirtualPlatforms,
-    },
-    {
       path: "/users/add",
       component: AddUserForm,
+    },
+    {
+      path: "/users/edit/:id",
+      component: EditUserForm,
+    },
+    {
+      path: "/virtplat",
+      component: VirtualPlatforms,
     },
     {
       path: "/virtplat/add",

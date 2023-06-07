@@ -6,12 +6,12 @@ import jwtDecode from "jwt-decode";
 import { navigate } from "svelte-navigator";
 
 export type JwtPayload = {
-  id: number,
-  email: string,
-  role: string,
-  domaine: string,
-  specialty: string
-}
+  id: number;
+  email: string;
+  role: string;
+  domaine: string;
+  specialty: string;
+};
 
 export function hasFields(x: unknown, fields: string[]): boolean {
   if (typeof x === "object" && x) {
@@ -29,44 +29,51 @@ export function isJwtPayload(x: unknown): boolean {
 }
 
 export function logAndReturn<T>(x: T): T {
-  console.log(x);
+  // console.log(x);
   return x;
 }
 
-
 export const serverUrlBase = "http://localhost:8000";
 
-export const decodeJwt = (jwt: string): JwtPayload => pipe(
-  jwt,
-  jwtDecode<{ user_data: JwtPayload }>,
-  (jwt) => jwt.user_data
-);
-export const decodeJwtFromStore = (): option.Option<{ user_data: JwtPayload }> => pipe(
-  localStorage.getItem("Auth"),
-  option.fromNullable,
-  option.map((jwt) => jwtDecode<{ user_data: JwtPayload }>(jwt))
-);
-export const getJwt = (): option.Option<string> => option.fromNullable(localStorage.getItem("Auth"));
+export const decodeJwt = (jwt: string): JwtPayload =>
+  pipe(jwt, jwtDecode<{ user_data: JwtPayload }>, (jwt) => jwt.user_data);
+export const decodeJwtFromStore = (): option.Option<{
+  user_data: JwtPayload;
+}> =>
+  pipe(
+    localStorage.getItem("Auth"),
+    option.fromNullable,
+    option.map((jwt) => jwtDecode<{ user_data: JwtPayload }>(jwt))
+  );
+export const getJwt = (): option.Option<string> =>
+  option.fromNullable(localStorage.getItem("Auth"));
 export const setJwt = (jwt: string) => localStorage.setItem("Auth", jwt);
-
 
 export const axiosConfig = {
   headers: {
-    'Auth': pipe(getJwt(), option.match(() => '', (x) => x)),
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-  }
-}
+    Auth: pipe(
+      getJwt(),
+      option.match(
+        () => "",
+        (x) => x
+      )
+    ),
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  },
+};
 
-export function handleAxiosError(e: unknown, failure: () => void, fatal: () => void) {
+export function handleAxiosError(
+  e: unknown,
+  failure: () => void,
+  fatal: () => void
+) {
   if (axios.isAxiosError(e)) {
     if (e.status === 403) {
       navigate("/login");
+    } else {
+      failure();
     }
-    else {
-      failure()
-    }
+  } else {
+    fatal();
   }
-  else {
-    fatal()
-  }
-} 
+}

@@ -24,7 +24,7 @@ export function get_modules(
     taskOption.fromTaskEither,
     taskOption.map((r) => r.data),
     taskOption.filter(isModuleArray),
-    taskOption.match(() => console.log("bad payload"), callback)
+    taskOption.match(() => console.error("bad payload"), callback)
   );
 }
 export function create_module(
@@ -41,7 +41,6 @@ export function create_module(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_modules(callback, failure, m.session_id as number);
     })
   )();
@@ -64,7 +63,6 @@ export function delete_module(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_modules(callback, failure, m.session_id as number);
     })
   )();

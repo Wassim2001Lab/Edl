@@ -14,11 +14,9 @@
   let submit = () => {
     addUser(
       (us) => {
-        console.log(us);
         navigate("/admin/users");
       },
       () => {
-        console.log("failure");
         cannot_add_user = true;
       },
       user

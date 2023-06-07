@@ -24,20 +24,13 @@
                   vd: u,
                 },
               ]),
-            () => {
-              console.log("failed");
-              navigate("login");
-            },
+            () => {},
             vp.vd_id
           )
         );
       },
-      () => {
-        console.log("failed");
-        navigate("login");
-      }
+      () => {}
     );
-    console.log(vp_vds);
   });
 
   let deleteFunction = (vd_id: number) => {
@@ -54,14 +47,13 @@
                 },
               ]),
             () => {
-              console.log("failed");
               navigate("login");
             },
             vp.vd_id
           )
         );
       },
-      () => console.log("fail"),
+      () => {},
       vd_id
     );
   };

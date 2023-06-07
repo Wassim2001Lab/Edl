@@ -4,7 +4,7 @@
   export let icon: string;
   export let value: string = "";
   let input_class = "";
-  const onChange = (e) => {
+  const onChange = (e: any) => {
     value = e.target.value;
   };
 </script>

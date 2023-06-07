@@ -66,7 +66,6 @@ export function add_mark(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       get_corrections(callBack, failure, ami.session_id);
     })
   )();
@@ -110,7 +109,6 @@ export function add_theme(
         )
     ),
     taskEither.match(console.error, (r) => {
-      console.log(r);
       callback();
     })
   )();

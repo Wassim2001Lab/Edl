@@ -1,34 +1,79 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import type { User } from "../../libjs/model/User";
+  import type { User } from "../../../libjs/model/User";
   import { onMount } from "svelte";
-  import { getUsers } from "../../libjs/apis/admin/accounts";
+  import { getUser } from "../../../libjs/apis/admin/accounts";
   import { navigate } from "svelte-navigator";
-  let headers: string[] = [
-    "id",
-    "email",
-    "role",
-    "domain",
-    "specialty",
-    "actions",
-  ];
-  let users: User[] = [];
-
+  import { type VirtualPlatform } from "../../../libjs/model/VirtualPlatform";
+  import {
+    deleteVirtualPlatform,
+    getVirtualPlatforms,
+  } from "../../../libjs/apis/admin/virtualPlatform";
+  let headers: string[] = ["vice doyen email", "name", "actions"];
+  let vp_vds: { vp: VirtualPlatform; vd: User }[] = [];
   onMount(async () => {
-    getUsers(
-      (us) => (users = us),
+    await getVirtualPlatforms(
+      (vps) => {
+        vps.forEach((vp) =>
+          getUser(
+            (u) =>
+              (vp_vds = [
+                ...vp_vds,
+                {
+                  vp,
+                  vd: u,
+                },
+              ]),
+            () => {
+              console.log("failed");
+              navigate("login");
+            },
+            vp.vd_id
+          )
+        );
+      },
       () => {
-        navigate("/login");
         console.log("failed");
+        navigate("login");
       }
     );
+    console.log(vp_vds);
   });
+
+  let deleteFunction = (vd_id: number) => {
+    deleteVirtualPlatform(
+      (vps) => {
+        vps.forEach((vp) =>
+          getUser(
+            (u) =>
+              (vp_vds = [
+                ...vp_vds,
+                {
+                  vp,
+                  vd: u,
+                },
+              ]),
+            () => {
+              console.log("failed");
+              navigate("login");
+            },
+            vp.vd_id
+          )
+        );
+      },
+      () => console.log("fail"),
+      vd_id
+    );
+  };
 </script>
 
 <div class="w-full h-full">
-  <div class="p-5 text-center">
+  <div class="pt-5 pb-5 text-center">
     <button
       class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 transform active:scale-75 transition-transform"
+      on:click={async () => {
+        await navigate("/admin/virtplat/add");
+      }}
     >
       <Icon icon="ic:baseline-add" />
     </button>
@@ -46,39 +91,25 @@
       </tr>
     </thead>
     <tbody>
-      {#each users as u}
+      {#each vp_vds as v}
         <tr
           class="text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700"
         >
           <td class="px-6 py-4">
-            {u.id}
+            {v.vd.email}
           </td>
           <td class="px-6 py-4">
-            {u.email}
-          </td>
-          <td class="px-6 py-4">
-            {u.role}
-          </td>
-          <td class="px-6 py-4">
-            {u.domaine}
-          </td>
-          <td class="px-6 py-4">
-            {u.specialty}
+            {v.vp.name}
           </td>
           <td
             class=" px-6 py-4 flex flex-row justify-center content-center space-x-5"
           >
             <button
               class="text-red-700 border border-red-700 hover:bg-red-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800 dark:hover:bg-red-500 transform active:scale-75 transition-transform"
+              on:click={async () => await deleteFunction(v.vp.vd_id)}
             >
               <Icon class="w-5 h-5 mr-2 -ml-1" icon="ic:baseline-delete" />
               Delete
-            </button>
-            <button
-              class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 transform active:scale-75 transition-transform"
-            >
-              Edit
-              <Icon class="w-5 h-5 ml-2 -mr-1" icon="ic:baseline-edit" />
             </button>
           </td>
         </tr>

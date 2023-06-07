@@ -1,9 +1,10 @@
 <script lang="ts">
   import type { Page, SideBarItem } from "../../libjs/uiTypes";
   import Main from "../general/User/Main.svelte";
-  import AddUserForm from "./AddUserForm.svelte";
-  import UserTable from "./UserTable.svelte";
-  import VirtualPlatforms from "./VirtualPlatforms.svelte";
+  import AddUserForm from "./Accounts/AddUserForm.svelte";
+  import UserTable from "./Accounts/UserTable.svelte";
+  import AddVirtualPlatformForm from "./VirtualPlatform/AddVirtualPlatformForm.svelte";
+  import VirtualPlatforms from "./VirtualPlatform/VirtualPlatforms.svelte";
   let userRole = "Administrator";
   let navBar: SideBarItem[] = [
     // { icon: "bxs-dashboard", link: "#", text: "Dashboard", active: true , component:<div},
@@ -32,6 +33,10 @@
     {
       path: "/users/add",
       component: AddUserForm,
+    },
+    {
+      path: "/virtplat/add",
+      component: AddVirtualPlatformForm,
     },
   ];
 </script>

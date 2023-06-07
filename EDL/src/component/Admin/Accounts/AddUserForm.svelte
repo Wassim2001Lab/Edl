@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import type { User } from "../../libjs/model/User";
-  import { addUser } from "../../libjs/apis/admin/accounts";
+  import type { User } from "../../../libjs/model/User";
+  import { addUser } from "../../../libjs/apis/admin/accounts";
   import { navigate } from "svelte-navigator";
   let cannot_add_user = false;
   let def: User = {

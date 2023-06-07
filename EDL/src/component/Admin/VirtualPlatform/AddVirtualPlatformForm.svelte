@@ -1,22 +1,43 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import type { Role, User } from "../../libjs/model/User";
-  import { addUser, updateUser } from "../../libjs/apis/admin/accounts";
+  import type { User } from "../../../libjs/model/User";
+  import { addUser, getUsers } from "../../../libjs/apis/admin/accounts";
   import { navigate } from "svelte-navigator";
-  export let user: User;
+  import VirtualPlatforms from "./VirtualPlatforms.svelte";
+  import { onMount } from "svelte";
+  import type { VirtualPlatform } from "../../../libjs/model/VirtualPlatform";
+  import { createVirtualPlatform } from "../../../libjs/apis/admin/virtualPlatform";
+  import { option } from "fp-ts";
+  import { id } from "fp-ts/lib/Refinement";
   let cannot_add_user = false;
-
-  let submit = () => {
-    updateUser(
+  let users: User[] = [];
+  onMount(() => {
+    getUsers(
       (us) => {
-        console.log(us);
-        navigate("/admin/users");
+        users = us.filter((u) => u.role === "ViceDoyen");
+        if (users[0].id) {
+          vp.vd_id = users[0].id;
+        }
       },
       () => {
         console.log("failure");
-        cannot_add_user = true;
+      }
+    );
+  });
+  let def: VirtualPlatform = {
+    name: "",
+    vd_id: 0,
+  };
+  let vp: VirtualPlatform = def;
+  let submit = async () => {
+    await createVirtualPlatform(
+      (v) => {
+        navigate("/admin/virtplat");
       },
-      user
+      () => {
+        console.log("failure");
+      },
+      vp
     );
   };
 </script>
@@ -27,7 +48,7 @@
   <p
     class="mb-10 text-5xl text-center font-extrabold leading-none tracking-tight text-gray-900 dark:text-white"
   >
-    Add User
+    Create Platform
   </p>
   <div class="h-5" />
   <div class="w-full grid grid-flow-row grid-cols-2 gap-5">
@@ -37,13 +58,13 @@
         id="floating_email"
         class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
         placeholder=" "
-        bind:value={user.email}
+        bind:value={vp.name}
         required
       />
       <label
         for="floating_email"
         class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-        >Email address</label
+        >Virtual platform name</label
       >
     </div>
 
@@ -51,41 +72,15 @@
       <select
         id="small"
         class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        bind:value={user.role}
+        bind:value={vp.vd_id}
       >
-        <option selected value="Applicant">Applicant</option>
-        <option value="CFD">CFD</option>
-        <option value="ViceDoyen">Vice Doyen</option>
-        <option value="Professor">Professor</option>
+        {#each users as vd}
+          <option value={vd.id}>{vd.email}</option>
+        {/each}
       </select>
     </div>
-
-    <div class="relative z-0 w-full mb-6 group">
-      <select
-        id="small"
-        class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        bind:value={user.domaine}
-        placeholder="Domaine"
-      >
-        <option selected value="Informatique">Informatique</option>
-      </select>
-    </div>
-    {#if user.role && !["ViceDoyen", "Admin"].includes(user.role)}
-      <div class="relative z-0 w-full mb-6 group">
-        <select
-          id="small"
-          class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          bind:value={user.specialty}
-          placeholder="Specialty"
-        >
-          <option selected value="GL">GL</option>
-          <option value="SCI">SCI</option>
-          <option value="TI">TI</option>
-          <option value="STIC">STIC</option>
-        </select>
-      </div>
-    {/if}
   </div>
+
   {#if cannot_add_user}
     <p
       class="mb-3 p-5 text-white bg-red-700 text-5xl text-center font-extrabold leading-none tracking-tight dark:text-white"
@@ -97,7 +92,7 @@
     <button
       type="button"
       class="text-white bg-red-700 hover:bg-red-800 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800 transform active:scale-75 transition-transform"
-      on:click={() => {}}
+      on:click={() => (vp = def)}
     >
       <Icon class="w-5 h-5 mr-2 -ml-1" icon="mdi:clear" />
       Clear

@@ -17,5 +17,5 @@
     <Icon class="w-5 h-5" icon="ph:x-bold" />
     <span class="sr-only">Close menu</span>
   </button>
-  <FormAdd />
+  <slot>stuff</slot>
 </div>

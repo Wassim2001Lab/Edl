@@ -1,8 +1,8 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import type { User } from "../../libjs/model/User";
+  import type { User } from "../../../libjs/model/User";
   import { onMount } from "svelte";
-  import { deleteUser, getUsers } from "../../libjs/apis/admin/accounts";
+  import { deleteUser, getUsers } from "../../../libjs/apis/admin/accounts";
   import { navigate } from "svelte-navigator";
   let headers: string[] = [
     "id",
@@ -23,8 +23,8 @@
       }
     );
   });
-  let addFunction = () => {
-    navigate("/admin/users/add");
+  let addFunction = async () => {
+    await navigate("/admin/users/add");
   };
   let deleteFunction = (id: number) => {
     deleteUser(
@@ -39,6 +39,14 @@
 </script>
 
 <div class="w-full h-full">
+  <div class="p-5 text-center">
+    <button
+      class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 transform active:scale-75 transition-transform"
+      on:click={addFunction}
+    >
+      <Icon icon="ic:baseline-add" />
+    </button>
+  </div>
   <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
     <thead
       class="text-xs text-white uppercase bg-gray-500 dark:bg-gray-700 dark:text-gray-400"
@@ -52,23 +60,6 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        class="text-black text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-      >
-        <td />
-        <td />
-        <td />
-        <td />
-        <td />
-        <td class="p-5">
-          <button
-            class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500 transform active:scale-75 transition-transform"
-            on:click={addFunction}
-          >
-            <Icon icon="ic:baseline-add" />
-          </button>
-        </td>
-      </tr>
       {#each users as u}
         <tr
           class="text-black text-center bg-white border-b dark:bg-gray-800 dark:border-gray-700"

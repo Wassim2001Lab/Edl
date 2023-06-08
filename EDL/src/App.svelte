@@ -2,7 +2,7 @@
   import { Router, Route } from "svelte-navigator";
   import Admin from "./component/Admin/Admin.svelte";
   import Login from "./component/general/login/login.svelte";
-  import TeacherTable from "./component/general/User/TeacherTable.svelte";
+  import TeacherTable from "./component/prof/TeacherTable.svelte";
 </script>
 
 <Router>

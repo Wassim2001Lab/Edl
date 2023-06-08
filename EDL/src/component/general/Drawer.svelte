@@ -1,8 +1,11 @@
 <script lang="ts">
+  
   import FormAdd from "./FormAdd.svelte";
   import Icon from "@iconify/svelte";
   let hide = true;
+
 </script>
+  
 
 <button on:click={() => (hide = false)}> Show </button>
 
